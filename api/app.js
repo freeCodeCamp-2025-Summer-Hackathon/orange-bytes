@@ -1,13 +1,11 @@
+import 'dotenv/config';
 import express from 'express';
-import dotenv from 'dotenv';
 import { dbConnect } from './models/db.js';
-
-dotenv.config();
 
 const app = express()
 const port = 3000
 
-dbConnect();
+await dbConnect();
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
