@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EventXchange</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/digitallytailored/classless@latest/classless.min.css"
+    />
+  </head>
+
+  <body>
+    <h1>EventXchange Test Pages</h1>
+
+    <section>
+      <h2>Sign Up</h2>
+      <form id="signup-form">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" />
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" />
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" />
+        <button typpe="submit">Sign Up</button>
+        <a href="/login">Already have an account? Login!</a>
+      </form>
+    </section>
+
+    <script>
+      const signupForm = document.getElementById('signup-form');
+      signupForm.addEventListener('submit', event => {
+        event.preventDefault();
+        const formData = new FormData(signupForm);
+        const credentials = {
+          name: formData.get('name'),
+          username: formData.get('username'),
+          password: formData.get('password'),
+        };
+        fetch('/api/v1/users', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(credentials),
+        })
+          .then(res => res.json())
+          .then(data => {
+            if (data.error) {
+              alert(data.error);
+              return;
+            }
+            window.location.href = '/login?redirect=/';
+          });
+      });
+    </script>
+  </body>
+</html>

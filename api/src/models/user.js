@@ -1,5 +1,5 @@
-import {Schema, model} from 'mongoose';
 import bcrypt from 'bcrypt';
+import {model, Schema} from 'mongoose';
 
 /**
  * @typedef User

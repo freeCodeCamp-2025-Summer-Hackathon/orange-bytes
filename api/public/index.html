@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EventXchange</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/digitallytailored/classless@latest/classless.min.css"
+    />
+  </head>
+  <body>
+    <h1>EventXchange Test Pages</h1>
+
+    <section>
+      <nav>
+        <a href="/login">Login</a>
+      </nav>
+    </section>
+
+    <section>
+      <h2>Status:</h2>
+      <label for="user-status">User:</label>
+      <output id="user-status"></output>
+    </section>
+
+    <script>
+      const userName = localStorage.getItem('exUserName');
+
+      const userStatusOutput = document.getElementById('user-status');
+      userStatusOutput.value = userName || 'Not logged in';
+    </script>
+  </body>
+</html>

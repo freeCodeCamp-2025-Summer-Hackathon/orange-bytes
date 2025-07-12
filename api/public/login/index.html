@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EventXchange</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/digitallytailored/classless@latest/classless.min.css"
+    />
+  </head>
+
+  <body>
+    <h1>EventXchange Test Pages</h1>
+
+    <section>
+      <h2>Login</h2>
+      <form id="login-form">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" />
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" />
+        <button typpe="submit">Login</button>
+        <a href="/signup">Dont have an account? Get one!</a>
+      </form>
+    </section>
+
+    <script>
+      const loginForm = document.getElementById('login-form');
+      loginForm.addEventListener('submit', event => {
+        event.preventDefault();
+        const formData = new FormData(loginForm);
+        const credentials = {
+          username: formData.get('username'),
+          password: formData.get('password'),
+        };
+        fetch('/api/v1/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(credentials),
+        })
+          .then(res => res.json())
+          .then(data => {
+            if (data.error != null) {
+              alert(data.error);
+              return;
+            }
+            localStorage.setItem('exUserName', data.name);
+            const searchParams = new URLSearchParams(window.location.search);
+            window.location.href = searchParams.get('redirect') || '/';
+          });
+      });
+    </script>
+  </body>
+</html>
